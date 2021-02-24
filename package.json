@@ -1,20 +1,20 @@
 {
   "name": "esy-zlib",
   "version": "1.2.11000",
-  "description": "zlib packaged for esy",
+  "description": "zlib packaged for esy. This will use native zlib for MacOS and compiled version for linux/windows.",
   "esy": {
     "exportedEnv": {
       "CFLAGS": {
         "scope": "global",
-        "val": "-I#{self.install / 'include'} $CFLAGS"
+        "val": "#{os == 'darwin' ? '$CFLAGS' : '-I#{self.install / 'include'} $CFLAGS' }"
       },
       "LDFLAGS": {
         "scope": "global",
-        "val": "-L#{self.lib} -lz $LDFLAGS"
+        "val": "#{os == 'darwin' ? '$LDFLAGS' : '-L#{self.lib} -lz $LDFLAGS' }"
       },
       "PKG_CONFIG_PATH": {
         "scope": "global",
-        "val": "#{self.lib / 'pkgconfig' : $PKG_CONFIG_PATH }"
+        "val":  "#{os == 'darwin' ? '$PKG_CONFIG_PATH' : '#{self.lib / 'pkgconfig' : $PKG_CONFIG_PATH }'"
       }
     },
     "buildEnv": {
@@ -22,12 +22,14 @@
     },
     "buildsInSource": true,
     "build": [
-      ["bash", "-c", "#{os == 'windows' ? './configure --prefix=$cur__install --uname=cygwin': './configure --prefix=$cur__install' }"],
+      [
+        "bash",
+        "-c",
+        "#{os == 'windows' ? './configure --prefix=$cur__install --uname=cygwin': './configure --prefix=$cur__install' }"
+      ],
       "make",
       "make test"
     ],
-    "install": [
-      "make install"
-    ]
+    "install": ["make install"]
   }
 }
