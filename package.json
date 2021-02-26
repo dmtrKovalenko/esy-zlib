@@ -14,7 +14,7 @@
       },
       "PKG_CONFIG_PATH": {
         "scope": "global",
-        "val":  "#{os == 'darwin' ? '$PKG_CONFIG_PATH' : '#{self.lib / 'pkgconfig' : $PKG_CONFIG_PATH }'"
+        "val":  "echo #{os == 'darwin' ? '$PKG_CONFIG_PATH' : self.lib/'pkgconfig' : $PKG_CONFIG_PATH }"
       }
     },
     "buildEnv": {
