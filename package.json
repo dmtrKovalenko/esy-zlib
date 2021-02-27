@@ -14,7 +14,7 @@
       },
       "PKG_CONFIG_PATH": {
         "scope": "global",
-        "val":  "echo #{os == 'darwin' ? '' : self.lib/'pkgconfig' : $PKG_CONFIG_PATH }"
+        "val":  "#{os == 'darwin' ? '' : self.lib/'pkgconfig' : $PKG_CONFIG_PATH }"
       }
     },
     "buildEnv": {
@@ -29,7 +29,6 @@
       ],
       "make",
       "make test",
-      "echo #{os}"
     ],
     "install": ["make install"]
   }
