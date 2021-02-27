@@ -6,7 +6,7 @@
     "exportedEnv": {
       "CFLAGS": {
         "scope": "global",
-        "val": "#{os == 'darwin' ? $CFLAGS : '-I'self.install/'include' $CFLAGS' }"
+        "val": "#{os == 'darwin' ? $CFLAGS : '-I'self.install/'include' $CFLAGS }"
       },
       "LDFLAGS": {
         "scope": "global",
