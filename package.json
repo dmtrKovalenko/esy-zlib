@@ -1,20 +1,20 @@
 {
   "name": "esy-zlib",
   "version": "1.2.11000",
-  "description": "zlib packaged for esy. This will use native zlib for MacOS and compiled version for linux/windows.",
+  "description": "zlib packaged for esy. This will use native zlib for MacOS and compile from source fo for linux/windows.",
   "esy": {
     "exportedEnv": {
       "CFLAGS": {
         "scope": "global",
-        "val": "#{os == 'darwin' ? '' : '-I'self.install/'include' : $CFLAGS }"
+        "val": "#{os == 'darwin' ? '' : ('-I'self.install/'include') $CFLAGS }"
       },
       "LDFLAGS": {
         "scope": "global",
-        "val": "#{os == 'darwin' ? '' : '-L'self.lib' -lz ' : $LDFLAGS }"
+        "val": "#{os == 'darwin' ? '-lz' : ('-L'self.lib' -lz ')  $LDFLAGS }"
       },
       "PKG_CONFIG_PATH": {
         "scope": "global",
-        "val":  "#{os == 'darwin' ? '' : self.lib/'pkgconfig' : $PKG_CONFIG_PATH }"
+        "val":  "#{os == 'darwin' ? '' : (self.lib/'pkgconfig') : $PKG_CONFIG_PATH }"
       }
     },
     "buildEnv": {
