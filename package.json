@@ -14,7 +14,7 @@
       },
       "PKG_CONFIG_PATH": {
         "scope": "global",
-        "val":  "#{os == 'darwin' ? '' : (self.lib/'pkgconfig') : $PKG_CONFIG_PATH }"
+        "val": "#{os == 'darwin' ? '' : (self.lib/'pkgconfig') : $PKG_CONFIG_PATH }"
       }
     },
     "buildEnv": {
@@ -22,14 +22,12 @@
     },
     "buildsInSource": true,
     "build": [
-      [
-        "bash",
-        "-c",
-        "#{os == 'windows' ? './configure --prefix=$cur__install --uname=cygwin': './configure --prefix=$cur__install' }"
-      ],
-      "make",
-      "make test"
+      "#{os == 'darwin' ? 'echo esy-zlib: skipping configuration for MacOS' : (os == 'windows' ? './configure --prefix=$cur__install --uname=cygwin' : './configure --prefix=$cur__install')}",
+      "#{os == 'darwin' ? 'echo esy-zlib: skipping building for MacOS' : 'make'}",
+      "#{os == 'darwin' ? 'echo esy-zlib: skipping testing for MacOS' : 'make test'}"
     ],
-    "install": ["make install"]
+    "install": [
+      "#{os == 'darwin' ? 'echo esy-zlib: skipping installation for MacOS' : 'make install'}"
+    ]
   }
 }
